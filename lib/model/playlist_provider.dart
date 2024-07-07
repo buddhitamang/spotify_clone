@@ -52,11 +52,10 @@ class PlaylistProvider extends ChangeNotifier {
   int? _currentArtistIndex;
   int? _currentSongIndex;
 
-  //durations
   Duration _currentDuration = Duration.zero;
   Duration _totalDuration = Duration.zero;
 
-  //constructors
+
   PlaylistProvider() {
     listenToDuration();
   }

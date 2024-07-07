@@ -17,7 +17,7 @@ class MainContainer extends StatelessWidget {
           Container(
             height: 80,
             width: 190,
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.secondary,
             child: Row(
               children: [
                Container(
@@ -32,7 +32,7 @@ class MainContainer extends StatelessWidget {
           Container(
             height: 80,
             width: 190,
-            color: Colors.grey,
+            color:Theme.of(context).colorScheme.secondary,
             child: Row(
               children: [
                 Container(

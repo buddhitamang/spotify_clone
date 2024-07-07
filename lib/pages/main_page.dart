@@ -9,6 +9,9 @@ import 'package:spotifyclone/model/playlist_provider.dart';
 import 'package:spotifyclone/pages/playlist_page.dart';
 
 import '../components/favorite_artists.dart';
+import '../theme/theme.dart';
+import '../theme/theme_provider.dart';
+import 'dark_mode_page.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final List artists = [
     ['Arijit Singh', 'assets/images/arijitsingh.jpeg'],
     ['Sushant KC', 'assets/images/sushant.jpg'],
@@ -50,6 +55,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
   late final dynamic playListProvider;
+  late final dynamic themeProvider;
 
   @override
   void initState() {
@@ -57,6 +63,8 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     //get playlist provider'
     playListProvider = Provider.of<PlaylistProvider>(context, listen: false);
+    themeProvider = Provider.of<ThemeProvider>(context, listen: false).loadTheme;
+
   }
 
   //navigate to playlistpage
@@ -69,14 +77,21 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      key: _scaffoldKey,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
         title: Row(
           children: [
-            CircleAvatar(
-              backgroundColor: Colors.blue,
-              child: Text('B'),
+            GestureDetector(
+              onTap: () {
+                _scaffoldKey.currentState?.openDrawer();
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Text('B'),
+              ),
             ),
             SizedBox(
               width: 8,
@@ -118,6 +133,56 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.workspace_premium), label: 'Premium'),
         ],
+      ),
+      drawer:Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                // Handle navigation to home screen
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.pop(context); // Close the drawer
+                // Handle navigation to settings screen
+              },
+            ),
+            Consumer<ThemeProvider>(
+              builder: (context, themeProvider, _) => ListTile(
+                leading: Icon(Icons.settings),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      themeProvider.themeData == darkMode ? 'Dark Mode' : 'Light Mode',
+                      style: TextStyle(
+                        color: themeProvider.themeData == darkMode ? Colors.white : Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                    Switch(
+                      activeColor: Colors.blue,
+                      value: themeProvider.themeData == darkMode, //this is initial code
+
+                      onChanged: (value) {
+                        themeProvider.toggleTheme();
+                        themeProvider.saveTheme;
+
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -165,7 +230,10 @@ class _MainPageState extends State<MainPage> {
                             style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Theme.of(context)
+                                    .primaryTextTheme
+                                    .headlineLarge
+                                    ?.color),
                           ),
                           Expanded(
                             child: ListView.builder(
@@ -202,7 +270,10 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .headlineLarge
+                              ?.color),
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -210,8 +281,7 @@ class _MainPageState extends State<MainPage> {
                           itemCount: episodes.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: EpisodesPage(
                                 text1: episodes[index][1],
                                 image: episodes[index][0],
@@ -237,7 +307,10 @@ class _MainPageState extends State<MainPage> {
                       style: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Theme.of(context)
+                              .primaryTextTheme
+                              .headlineLarge
+                              ?.color),
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -245,8 +318,7 @@ class _MainPageState extends State<MainPage> {
                           itemCount: bestArtists.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding:
-                              const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: BestArtistsPage(
                                 text1: bestArtists[index][1],
                                 image: bestArtists[index][0],

@@ -27,6 +27,7 @@ class ThemeProvider extends ChangeNotifier {
   Future<void> _saveTheme() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_themePrefKey, _themeData == darkMode);
+
   }
 
   Future<void> _loadTheme() async {

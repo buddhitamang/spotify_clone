@@ -8,18 +8,22 @@ class FavoriteArtists extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: CircleAvatar(
-            radius: 66,
-            backgroundImage: AssetImage(image),
-          ),
+    return Container(
+      width: 140,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 66,
+              backgroundImage: AssetImage(image),
+            ),
+            SizedBox(height: 3,),
+            Text(name,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Theme.of(context).primaryTextTheme.headlineMedium?.color),maxLines: 1,overflow: TextOverflow.ellipsis,)
+          ],
         ),
-        SizedBox(height: 3,),
-        Text(name,style: TextStyle(fontSize: 18,color: Colors.white70),)
-      ],
+      ),
     );
+    // TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color:Theme.of(context).textTheme.headlineMedium?.color)
   }
 }

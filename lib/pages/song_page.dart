@@ -22,7 +22,7 @@ class SongPage extends StatelessWidget {
       final currentSong = currentArtist.songs[currentSongIndex];
 
       return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor:  Theme.of(context).colorScheme.primary,
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +39,7 @@ class SongPage extends StatelessWidget {
                   ),
                   Text(
                     currentArtist.artistName,
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color:  Theme.of(context).primaryTextTheme.headlineLarge?.color),
                   ),
                   Icon(Icons.menu),
                 ],
@@ -80,7 +80,7 @@ class SongPage extends StatelessWidget {
                         Text(
                           currentArtist.artistName,
                           style: TextStyle(
-                              fontSize: 15, color: Colors.grey.shade900),
+                              fontSize: 15, color: Theme.of(context).primaryTextTheme.headlineMedium?.color),
                         ),
                       ],
                     ),
@@ -105,7 +105,7 @@ class SongPage extends StatelessWidget {
                 child: Slider(
                   min: 0,
                   max: value.totalDuration.inSeconds.toDouble(),
-                  activeColor: Colors.black,
+                  activeColor:  Theme.of(context).colorScheme.secondary,
                   value: value.currentDuration.inSeconds.toDouble(),
                   onChanged: (double newValue) {
                     // During when the user is sliding around
@@ -121,10 +121,10 @@ class SongPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(formatDuration(value.currentDuration)), // Display current time
+                    Text(formatDuration(value.currentDuration),style: TextStyle( color:Theme.of(context).primaryTextTheme.headlineSmall?.color),), // Display current time
                     Icon(Icons.shuffle),
                     Icon(Icons.repeat),
-                    Text(formatDuration(value.totalDuration)), // Display total duration
+                    Text(formatDuration(value.totalDuration),style: TextStyle( color:Theme.of(context).primaryTextTheme.headlineSmall?.color),), // Display total duration
                   ],
                 ),
               ),

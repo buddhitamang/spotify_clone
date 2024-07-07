@@ -22,8 +22,8 @@ class EpisodesPage extends StatelessWidget {
                 child: Image.asset(image,fit: BoxFit.cover,)),
 
           ),
-          Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.white),maxLines: 1,overflow: TextOverflow.ellipsis,),
-          Text(text2,style: TextStyle(fontSize: 12,color: Colors.grey)),
+          Text(text1,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Theme.of(context).primaryTextTheme.headlineMedium?.color),maxLines: 1,overflow: TextOverflow.ellipsis,),
+          Text(text2,style: TextStyle(fontSize: 12,color: Theme.of(context).primaryTextTheme.headlineSmall?.color)),
         ],
       ),
     );

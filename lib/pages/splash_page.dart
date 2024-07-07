@@ -28,11 +28,12 @@ class _SplashPageState extends State<SplashPage> {
           width: 120,
           height: 120,
           decoration: BoxDecoration(
-            color: Colors.black, // Background color of the container
+             color: Colors.black,
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: AssetImage('assets/images/splash_icon.png'),
+              image: AssetImage('assets/images/dd.png'),
               fit: BoxFit.cover,
+
             ),
           ),
         ),
